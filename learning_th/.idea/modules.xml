@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../example/Dynamic_randomization_torch/.idea/Dynamic_randomization_torch.iml" filepath="$PROJECT_DIR$/../../example/Dynamic_randomization_torch/.idea/Dynamic_randomization_torch.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/learning_th.iml" filepath="$PROJECT_DIR$/.idea/learning_th.iml" />
     </modules>
   </component>

@@ -1,19 +1,13 @@
-pos = 255
-speed = 255
-force = 255
+import cv2
+import matplotlib.pyplot as plt
 
-command = "091003E8000306090000" + hex(pos)[2:].zfill(2) + hex(speed)[2:].zfill(2) + hex(force)[2:].zfill(2)
-data = bytearray.fromhex(command)
-crc = 0xFFFF
-for idx in data:
-    crc ^= idx
-    for i in range(8):
-        if (crc & 1) != 0:
-            crc >>= 1
-            crc ^= 0xA001
-        else:
-            crc >>= 1
-crc = "%04X" % (crc)
-command = command + crc[2] + crc[3] + crc[0] + crc[1]
+img = plt.imread('lenna.jpeg')
+res = cv2.resize(img,(32,32))
+plt.ion()
+plt.imshow(res)
+# plt.show(img)
 
-print(bytearray.fromhex(command))
+
+
+plt.pause(3)  #显示秒数
+plt.close()
