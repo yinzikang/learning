@@ -3,6 +3,6 @@ b = a
 a = 2
 print(b)
 
-a = 'a'
+a = 'mm'
 b = a
 a

@@ -15,7 +15,7 @@ print('d' in string_2)  # True
 
 # list
 print('\n####list####')
-list_1 = [[10, 20], ['a', 'b']]
+list_1 = [[10, 20], ['mm', 'b']]
 list_2 = [number_1, string_1]
 list_3 = list()
 list_4 = []

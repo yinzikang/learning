@@ -12,13 +12,14 @@
 import torch as th
 import torch.nn as nn
 from torchviz import make_dot
+from torch.utils.tensorboard import SummaryWriter
 
 
 class FeedForwardNetwork(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
         super(FeedForwardNetwork, self).__init__()
         self.layer1 = nn.Sequential(nn.Linear(input_size, hidden_size[0]),nn.ReLU())
-        self.layer2 = nn.Sequential(nn.Linear(input_size, hidden_size[-1]), nn.Sigmoid())
+        self.layer2 = nn.Sequential(nn.Linear(hidden_size[-1], output_size), nn.Sigmoid())
 
     def forward(self, input):
         output = self.layer1(input)
@@ -30,6 +31,7 @@ class FeedForwardNetwork(nn.Module):
 if __name__ == "__main__":
     # device
     device = th.device("cuda:0" if th.cuda.is_available() else "cpu")
+    writer = SummaryWriter('ffnn_test_tensorboard')
 
     # network
     ins = 2
@@ -51,13 +53,16 @@ if __name__ == "__main__":
     print(test_input1.device)
 
     test_output1 = net1(test_input1)
-    print(test_output1)
-    print(test_output1.device)
-    test_output2 = net1(test_input2)
-    print(test_output2)
-    print(test_output1.device)
-    test_output3 = net1(test_input3)
-    print(test_output3)
-    print(test_output3.device)
+    # print(test_output1)
+    # print(test_output1.device)
+    # test_output2 = net1(test_input2)
+    # print(test_output2)
+    # print(test_output1.device)
+    # test_output3 = net1(test_input3)
+    # print(test_output3)
+    # print(test_output3.device)
 
-    vis = make_dot(test_output1, params=dict(net1.named_parameters())).render("ffnn", format="png")
+    # vis = make_dot(test_output1, params=dict(net1.named_parameters())).render("ffnn", format="png")
+
+    writer.add_graph(net1, test_input3)
+    writer.close()
