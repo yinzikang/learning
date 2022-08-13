@@ -11,8 +11,8 @@ print(torch.rand(3, 3).cuda())
 
 a = torch.randn(2, 2)
 b = torch.randn(2, 2).to(device)
-c = torch.randn(2,2,requires_grad=True)
-d = torch.randn(2,2,requires_grad=True)
+c = torch.randn(2, 2, requires_grad=True)
+d = torch.randn(2, 2, requires_grad=True)
 e = c + d
 print(a)
 print(b)

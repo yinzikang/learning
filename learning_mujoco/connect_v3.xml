@@ -1,0 +1,41 @@
+<mujoco model="jk5">
+    <compiler angle="radian" meshdir="../meshes/" coordinate="local"/>
+    <size njmax="5000" nconmax="1000" />
+    <option timestep="1e-3"/>
+    <asset>
+        <material name='floor_mat' texture="floor_tex"  shininess="0.8" texrepeat="10 10" specular="0.7"  reflectance="0.5" />
+        <texture name="floor_tex" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 .2 .3" width="100" height="100" />
+    </asset>
+    <worldbody>
+        <light name="light" mode="targetbody" target="last link" directional="true" pos="1 1 3" />
+        <geom name='floor' material="floor_mat" pos='0 0 0' size='2.5 2.5 0.1'  type='plane'/>
+        <!--robot-->
+        <body name="last link" pos="0 0 0.8">
+            <inertial pos="0 0 0" mass="1" diaginertia="0.1 0.1 0.1" />
+            <geom type="box" pos="0 0 0" size="0.1 0.1 0.1" rgba="1 0 0 1"/>
+            <site name="sensor on link" pos="0 0 -0.1" rgba="1 0 0 0" size="0.01 0.01 0.01" type="box"/>
+            <joint type="free"/>
+<!--            <joint type="slide" axis="1 0 0"/>-->
+            <body name="gripper" pos="0 0 -0.2">
+                <inertial pos="0 0 0" mass="1" diaginertia="0 0 0" />
+                <geom type="box" pos="0 0 0" size="0.1 0.1 0.1" rgba="0 1 0 1"/>
+                <site name="sensor on gripper" pos="0 0 -0.1" rgba="1 0 0 0" size="0.01 0.01 0.01" type="box"/>
+            </body>
+        </body>
+        <!--object-->
+        <body name="box" pos="0 0 0.3">
+            <inertial pos="0 0 0" mass="4" diaginertia="0.1 0.1 0.1" />
+            <geom type="box" size="0.1 0.1 0.1"  rgba="0 0 1 1"/>
+            <joint type="free"/>
+            <site name="sensor on box" pos="0 0 0" rgba="1 0 0 0" size="0.01 0.01 0.01" type="box"/>
+        </body>
+    </worldbody>
+    <equality>
+        <connect name="test" active="true" body1="gripper" body2="box" anchor="0 0 -0.2"/>
+    </equality>
+    <sensor>
+        <force name="force on link" site="sensor on link"/>
+        <force name="force on gripper" site="sensor on gripper"/>
+        <force name="force on box" site="sensor on box"/>
+    </sensor>
+</mujoco>
